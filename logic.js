@@ -18,7 +18,7 @@ function createFeatures(earthquakeData) {
 
     markers.addLayer(L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
     .bindPopup("<h3>" + feature.properties.place +
-    "</h3><hr><p>" + new Date(feature.properties.time) + "</p>"));
+    "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>" + feature.properties.mag + "</p>"));
   
   }
 
@@ -53,8 +53,9 @@ function createMap(earthquakes) {
 
   // Define a baseMaps object to hold our base layers
   var baseMaps = {
-    "Street Map": streetmap,
-    "Dark Map": darkmap
+   
+    "Dark Map": darkmap,
+    "Street Map": streetmap
   };
 
   // Create overlay object to hold our overlay layer
@@ -69,7 +70,7 @@ function createMap(earthquakes) {
       37.09, -95.71
     ],
     zoom: 5,
-    layers: [streetmap, earthquakes]
+    layers: [darkmap, markers]
   });
 
   // Create a layer control
