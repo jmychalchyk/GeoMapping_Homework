@@ -22,31 +22,29 @@ d3.json(selectedURL, function(data) {
 });
 }
 var markers = L.markerClusterGroup();
+var quakes = L.markerClusterGroup();
 function createFeatures(earthquakeData) {
 
   // Define a function we want to run once for each feature in the features array
   // Give each feature a popup describing the place and time of the earthquake
   function onEachFeature(feature, layer) {
     
+    markers.addLayer(L.circle([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
+      fillOpacity: 0.75,color: "white",fillColor: "purple",radius: feature.properties.mag*20000})
+      .bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>" + feature.properties.mag + " Magnitude </p>"));
+    
+    quakes.addLayer(L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
+    .bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>" + feature.properties.mag + " Magnitude </p>"));
 
-    layer.bindPopup("<h3>" + feature.properties.place +"</h3>");
 
-    markers.addLayer(L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
-    .bindPopup("<h3>" + feature.properties.place +
-    "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>" + feature.properties.mag + "</p>"));
-  
   }
 
-  // Create a GeoJSON layer containing the features array on the earthquakeData object
-  // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature
   });
 
-  // Sending our earthquakes layer to the createMap function
   createMap(earthquakes);
 }
-
 
 
 function createMap(earthquakes) {
@@ -68,15 +66,14 @@ function createMap(earthquakes) {
 
   // Define a baseMaps object to hold our base layers
   var baseMaps = {
-   
     "Dark Map": darkmap,
     "Street Map": streetmap
   };
 
   // Create overlay object to hold our overlay layer
   var overlayMaps = {
-    Earthquakes: earthquakes,
-    MarkerCluster:markers
+    Locations: quakes,
+    Magnitude:markers
   };
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load
