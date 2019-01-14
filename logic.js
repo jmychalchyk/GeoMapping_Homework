@@ -1,11 +1,26 @@
 // Store our API endpoint inside queryUrl
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
+var v_hour ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; //past Hour
+var v_day = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";//Past day
+var v_week ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"; //past Week
+var v_month = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"; //past Month
 
-// Perform a GET request to the query URL
-d3.json(queryUrl, function(data) {
+
+var queryUrl = v_hour
+
+var v_click_hour = d3.select("#pills-hour");
+var v_click_day = d3.select("#pills-day");
+var v_click_week = d3.select("#pills-week");
+var v_click_month = d3.select("#pills-month");
+
+f_run_get_data(queryUrl);
+
+function f_run_get_data(selectedURL){
+  
+d3.json(selectedURL, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   createFeatures(data.features);
 });
+}
 var markers = L.markerClusterGroup();
 function createFeatures(earthquakeData) {
 
@@ -80,3 +95,24 @@ function createMap(earthquakes) {
     collapsed: false
   }).addTo(myMap);
 } 
+
+v_click_hour.on("click", function() {
+  markers.clearLayers();
+   f_run_get_data(v_hour);
+  console.log("Clicked by Hour");
+});
+v_click_day.on("click", function() {
+  markers.clearLayers();
+  f_run_get_data(v_day);
+  console.log("Clicked by Day");
+});
+v_click_week.on("click", function() {
+  markers.clearLayers();
+  f_run_get_data(v_week);
+  console.log("Clicked by Week");
+});
+v_click_month.on("click", function() {
+  markers.clearLayers();
+  f_run_get_data(v_month);
+  console.log("Clicked by Month");
+});
