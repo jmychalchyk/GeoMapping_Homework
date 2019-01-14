@@ -30,7 +30,7 @@ function createFeatures(earthquakeData) {
   function onEachFeature(feature, layer) {
     
     markers.addLayer(L.circle([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
-      fillOpacity: 0.75,color: "white",fillColor: "purple",radius: feature.properties.mag*20000})
+      fillOpacity: 0.75,color: "white",fillColor: "purple",radius: feature.properties.mag*10000})
       .bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>" + feature.properties.mag + " Magnitude </p>"));
     
     quakes.addLayer(L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]])
