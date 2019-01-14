@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // Store our API endpoint inside queryUrl
 var v_hour ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; //past Hour
 var v_day = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";//Past day
@@ -97,22 +95,25 @@ function createMap(earthquakes) {
 
 v_click_hour.on("click", function() {
   markers.clearLayers();
+  quakes.clearLayers();
    f_run_get_data(v_hour);
   console.log("Clicked by Hour");
 });
 v_click_day.on("click", function() {
   markers.clearLayers();
+  quakes.clearLayers();
   f_run_get_data(v_day);
   console.log("Clicked by Day");
 });
 v_click_week.on("click", function() {
   markers.clearLayers();
+  quakes.clearLayers();
   f_run_get_data(v_week);
   console.log("Clicked by Week");
 });
 v_click_month.on("click", function() {
   markers.clearLayers();
+  quakes.clearLayers();
   f_run_get_data(v_month);
   console.log("Clicked by Month");
 });
->>>>>>> 91fb27f63e458476e4ee4e90f4c30c76d50bfc02
