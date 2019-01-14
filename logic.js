@@ -6,7 +6,7 @@ var v_month = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_mon
 
 
 var queryUrl = v_hour
-
+var v_cnt = 0
 var v_click_hour = d3.select("#pills-hour");
 var v_click_day = d3.select("#pills-day");
 var v_click_week = d3.select("#pills-week");
@@ -43,7 +43,8 @@ function createFeatures(earthquakeData) {
     onEachFeature: onEachFeature
   });
 
-  createMap(earthquakes);
+  if (v_cnt == 0) { createMap(earthquakes);}
+  v_cnt = 1
 }
 
 function f_get_color(invalue){
